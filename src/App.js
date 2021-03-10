@@ -1,23 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import getPlantData from "./services/getPlantData";
+import convertFilesToBase64 from "./services/convertFilesToBase64";
 
 function App() {
+  const handleFileUpload = async (event) => {
+    const base64Files = await convertFilesToBase64(event.target.files);
+    const plantData = await getPlantData(base64Files);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      File to identify
+      <input type="file" onChange={handleFileUpload} />
     </div>
   );
 }
